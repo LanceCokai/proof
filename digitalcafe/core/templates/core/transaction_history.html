@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+</head>
+<body>
+    <h1>Transaction History</h1>
+    <a href="/">Back to products</a>
+
+    {% if transactions %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction Date</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                    {% for line_item in transaction.lineitem_set.all %}
+                        <tr>
+                            <td>{{ transaction.created_at }}</td>
+                            <td>{{ line_item.product.name }}</td>
+                            <td>{{ line_item.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No transactions found.</p>
+    {% endif %}
+</body>
+</html>

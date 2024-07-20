@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Welcome to Digital Cafe</h1>
+    
+    {% if user.is_authenticated %}
+        <p>Hi, {{ user.username }}!</p>
+        <p><a href="{% url 'checkout' %}">Go to checkout</a></p>
+    {% else %}
+        <p><a href="{% url 'login_view' %}">Login</a></p>
+    {% endif %}
+    
+    <h2>Product List</h2>
+    
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if messages.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h2>Products</h2>
+    
+    {% if product_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product_record in product_data %}
+                    <tr>
+                        <td><a href="{% url 'product_detail' product_record.id %}">{{ product_record.name }}</a></td>
+                        <td>{{ product_record.price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products available.</p>
+    {% endif %}
+    <br>
+    <p><a href="{% url 'transaction_history' %}">View Transaction History</a></p>
+
+</body>
+</html>
