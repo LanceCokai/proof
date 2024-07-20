@@ -1,2 +1,2 @@
 # Lance Cokai ITM
-# Proofs
+# Proofs for Digital Cafe 0001 to 0010
